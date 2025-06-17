@@ -118,6 +118,7 @@ pub unsafe extern "C" fn motor_controller_get_velocity(ptr: *mut MotorController
     }
 }
 
+#[no_mangle]
 pub unsafe extern "C" fn motor_controller_set_velocity(
     ptr: *mut MotorController,
     speed: f32,

@@ -11,6 +11,7 @@
 #include "hardware_interface/types/hardware_interface_return_values.hpp"
 #include "hardware_interface/types/hardware_interface_type_values.hpp"
 #include "rclcpp/macros.hpp"
+#include <vector>
 
 #include "motor_interface/motor_interface.h"
 
@@ -18,16 +19,23 @@ namespace happy {
     class HappySystemHardware : public hardware_interface::SystemInterface
     {
     private:
-        const char* MOTOR_CONTROLLER_LEFT_ID = "";
+        const char* MOTOR_CONTROLLER_LEFT_ID = "/dev/ttyUSB0";
         const u_int8_t MOTOR_CONTROLLER_LEFT_ADDRESS = 0x1;
-        const char* MOTOR_CONTROLLER_RIGHT_ID = "";
-        const u_int8_t MOTOR_CONTROLLER_RIGHT_ADDRESS = 0x1;
+        const char* MOTOR_CONTROLLER_RIGHT_ID = "/dev/ttyUSB1";
+        const u_int8_t MOTOR_CONTROLLER_RIGHT_ADDRESS = 0x2;
         // Store the controllers
         motor_controller_t* motor_controller_left_;
         motor_controller_t* motor_controller_right_;
+        
+        // Hardware state storage
+        std::vector<double> hw_positions_;
+        std::vector<double> hw_velocities_;
+        std::vector<double> hw_commands_;
 
     public:
         RCLCPP_SHARED_PTR_DEFINITIONS(HappySystemHardware);
+        
+        ~HappySystemHardware();
 
         HAPPY_HARDWARE_PUBLIC
         hardware_interface::CallbackReturn on_init(

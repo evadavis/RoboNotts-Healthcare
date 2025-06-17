@@ -45,7 +45,7 @@ $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/hardware/happy_ros2_control/include>
 $<INSTALL_INTERFACE:include/happy_ros2_control>
 $<INSTALL_INTERFACE:include/motor_interface>
 )
-target_link_libraries(happy_ros2_control PRIVATE motor_interface)
+target_link_libraries(happy_ros2_control PRIVATE happy_hardware_interface)
 ament_target_dependencies(
   happy_ros2_control PUBLIC
   ${THIS_PACKAGE_INCLUDE_DEPENDS}
